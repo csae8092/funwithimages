@@ -1,0 +1,3 @@
+rembg
+tqdm
+python-slugify
