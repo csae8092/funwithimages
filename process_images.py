@@ -7,9 +7,9 @@ from rembg import remove
 from PIL import Image
 from tqdm import tqdm
 
-INPUT_DIR = "./sample_in"
+INPUT_DIR = "/mnt/acdh_resources/container/R_wkfm_palm_21464/tagebuch_palm_orig_as_transmitted"
 INPUT_IMG_EXT = "jpg"
-OUTPUT_DIR = "./sample_out"
+OUTPUT_DIR = "/mnt/acdh_resources/container/R_wkfm_palm_21464/tagebuch_processed"
 IMG_PREFIX = "palm__"
 
 shutil.rmtree(OUTPUT_DIR, ignore_errors=True)
@@ -30,6 +30,7 @@ for x in tqdm(files):
     output.save(new_name)
     im = Image.open(new_name)
     alpha = im.getchannel("A")
+    alpha = alpha.point(lambda i: 0 if i < 150 else i)
     bbox = alpha.getbbox()
     res = im.crop(bbox)
     res.save(new_name)
