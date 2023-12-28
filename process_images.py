@@ -7,10 +7,9 @@ from rembg import remove
 from PIL import Image
 from tqdm import tqdm
 
-INPUT_DIR = "/mnt/acdh_resources/container/R_wkfm_palm_21464/tagebuch_palm_orig_as_transmitted"
+INPUT_DIR = "/home/csae8092/Documents/palm/tagebuch_palm"
 INPUT_IMG_EXT = "jpg"
-OUTPUT_DIR = "/mnt/acdh_resources/container/R_wkfm_palm_21464/tagebuch_processed"
-IMG_PREFIX = "palm__"
+OUTPUT_DIR = "/home/csae8092/Documents/palm/processed"
 
 shutil.rmtree(OUTPUT_DIR, ignore_errors=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -23,7 +22,7 @@ print(
 for x in tqdm(files):
     new_name = x.replace(INPUT_DIR, OUTPUT_DIR)
     _, tail = os.path.split(x.replace(f".{INPUT_IMG_EXT}", ""))
-    slug_name = f"{IMG_PREFIX}{slugify(tail)}"
+    slug_name = f"{slugify(tail)}"
     new_name = new_name.replace(tail, slug_name).replace(f".{INPUT_IMG_EXT}", ".png")
     input = Image.open(x)
     output = remove(input)
